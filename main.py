@@ -71,7 +71,14 @@ if percent_diff > 0.3:
     }
 
     news_response = requests.get(NEWS_ENDPOINT,params=news_params)
-    print(news_response.json()['articles'][:3])
+    articles = news_response.json()['articles'][:3]
+    print(articles)
+    print(type(articles))
+
+    # [new_item for item in list]
+    article_list = [f"Title: {article['title']} Description: {article['description']}" for article in articles]
+    print(article_list)
+
     # print(news_response.json())
     # print('====')
     # print(news_response.json()['articles'])
