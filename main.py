@@ -1,4 +1,5 @@
 import requests
+from twilio.rest import Client
 
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -6,6 +7,8 @@ STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 STOCK_API_KEY = 'M31RIST54Y9K6824'
 NEWS_API_KEY = '39709398305945eb818f723ec48de585'
+TWILIO_SID = 'AC19a08ecffde25e6720eb9152fbbd304e'
+TWILIO_AUTH_TOKEN = 'beac24a4cec304348641875f9edd521b'
 
 ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
 # When stock price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -90,6 +93,16 @@ if percent_diff > 0.3:
     # print(news_response.json()['articles'][1])
     # print('====')
     # print(news_response.json()['articles'][2])
+
+    client = Client(TWILIO_SID, TWILIO_AUTH_TOKEN)
+
+    for artikulo in article_list:
+        message = client.messages \
+            .create(
+            body=artikulo,
+            from_='+14066292641',
+            to='+639282022640'
+        )
 
 #TODO 6. - Instead of printing ("Get News"), use the News API to get articles related to the COMPANY_NAME.
 
